@@ -1,0 +1,218 @@
+﻿@model Ncepu.GraduationProject.Sis.Web.Models.UnitIndex.IndexModel
+@using Ncepu.GraduationProject.Sis.Web.Models.UnitIndex;
+@{
+    ViewBag.Title = "机组生产运行指标";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .rheader
+    {
+        font-weight: bold;
+        width: 40%;
+    }
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="@Url.Action("Index", "Home")">首页</a> <span class="divider">/</span>
+        </li>
+        <li>
+            <a href="#">机组生产运行指标</a>
+        </li>
+        <li style="padding-left: 70%">
+            <button class="btn btn-small btn-primary" onclick="$('#uniModal').modal('show');">
+                <i class=" icon-search"></i>&nbsp;&nbsp;指标查询/对比
+            </button>
+        </li>
+    </ul>
+</div>
+<!--row-->
+<div class="row-fluid sortable">
+    <div class="box span12">
+        <div class="box-header well" data-original-title="">
+            <h2>锅炉系统</h2>
+        </div>
+        <div class="box-content">
+            <table id="boiler-info" class="table table-striped table-bordered ">
+                <thead>
+                    <tr>
+                        <th>机组编号</th>
+                        <th>主汽压力(MPa)</th>
+                        <th>主汽温度(℃)</th>
+                        <th>再热气压(MPa)</th>
+                        <th>再热温度(℃)</th>
+                        <th>减温水流量(t/s)</th>
+                        <th>给水压力(MPa)</th>
+                        <th>给水流量(t/s)</th>
+                        <th>排烟氧含量(%)</th>
+                        <th>排烟温度(℃)</th>
+                        <th>燃煤量(t/h)</th>
+                        <th>锅炉补给水温度(℃)</th>
+                    </tr>
+                </thead>
+                <tbody>
+               @foreach(var item in Model.BoilerInfos)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.MSP</td>
+                        <td>@item.MST</td>
+                        <td>@item.RSP</td>
+                        <td>@item.RST</td>
+                        <td>@item.DWF</td>
+                        <td>@item.FWP</td>
+                        <td>@item.FWF</td>
+                        <td>@item.SEOC</td>
+                        <td>@item.SEOT</td>
+                        <td>@item.ACB</td>
+                        <td>@item.BFW</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--/row-->
+
+<!--row-->
+<div class="row-fluid sortable">
+    <div class="box span8">
+        <div class="box-header well" data-original-title="">
+            <h2>汽机系统</h2>
+        </div>
+        <div class="box-content">
+            <table id="turbine-info" class="table table-striped table-bordered ">
+                <thead>
+                    <tr>
+                        <th>机组编号</th>
+                        <th>主汽压力(MPa)</th>
+                        <th>主汽温度(℃)</th>
+                        <th>再热气压(MPa)</th>
+                        <th>再热温度(℃)</th>
+                        <th>主汽流量(t/s)</th>
+                        <th>凝汽机真空(kPa)</th>
+                    </tr>
+                </thead>
+                <tbody>
+               @foreach(var item in Model.TurbineInfos)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.MSP</td>
+                        <td>@item.MST</td>
+                        <td>@item.RSP</td>
+                        <td>@item.RST</td>
+                        <td>@item.MSF</td>
+                        <td>@item.CEV</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <div class="box span4">
+        <div class="box-header well" data-original-title="">
+            <h2>电机系统</h2>
+        </div>
+        <div class="box-content">
+            <table id="motor-info" class="table table-striped table-bordered ">
+                <thead>
+                    <tr>
+                        <th>机组编号</th>
+                        <th>有功功率(MW)</th>
+                        <th>无功功率(MW)</th>
+                    </tr>
+                </thead>
+                <tbody>
+               @foreach(var item in Model.MotorInfos)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.AP</td>
+                        <td>@item.RP</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<!--/row-->
+@{Html.RenderAction("Modal");}
+
+<script type="text/javascript">
+    var websocket;
+    var boilerInfo = $("#boiler-info>tbody>tr");
+    var turbineInfo = $("#turbine-info>tbody>tr");
+    var motroInfo = $("#motor-info>tbody>tr");
+    $(document).ready(function(){
+        var wsServer = "@ViewBag.Protocol://@Request.Url.Host:@ViewBag.Port/UnitIndex.Index";
+        websocket = new WebSocket(wsServer);
+        websocket.onopen = function (evt) { onOpen(evt) };
+        websocket.onclose = function (evt) { onClose(evt) };
+        websocket.onmessage = function (evt) { onMessage(evt) };
+        websocket.onerror = function (evt) { onError(evt) };
+    });
+
+
+    function onOpen(evt) {
+        console.log("Connected to WebSocket server.");
+    }
+
+    function onClose(evt) {
+        alert("websocket is closed.");
+    }
+
+    function onMessage(evt) {
+        var data = $.parseJSON(evt.data).d;
+        for (var i = 1; i < 5; i++) {
+            fillBoilerInfo(i, data);
+            fillTurbineInfo(i, data);
+            fillMotorInfo(i, data);
+        }
+    }
+    function onError(evt) {
+        alert('Error occured: ' + evt.data);
+    }
+
+    function fillBoilerInfo(i,data) {
+        var tr = boilerInfo.eq(i - 1);
+        var tds = tr.children();
+        var j = 1;
+        tds.eq(j++).html(data[0]["0" + i + "_MSPB"]);
+        tds.eq(j++).html(data[0]["0" + i + "_MSTB"]);
+        tds.eq(j++).html(data[0]["0" + i + "_RSPB"]);
+        tds.eq(j++).html(data[0]["0" + i + "_RSTB"]);
+        tds.eq(j++).html(data[0]["0" + i + "_DWF"]);
+        tds.eq(j++).html(data[0]["0" + i + "_FWP"]);
+        tds.eq(j++).html(data[0]["0" + i + "_FWF"]);
+        tds.eq(j++).html(data[0]["0" + i + "_SEOC"]);
+        tds.eq(j++).html(data[0]["0" + i + "_SEOT"]);
+        tds.eq(j++).html(data[0]["0" + i + "_ACB"]);
+        tds.eq(j++).html(data[0]["0" + i + "_BFW"]);
+    }
+    
+    function fillTurbineInfo(i, data) {
+        var tr = turbineInfo.eq(i - 1);
+        var tds = tr.children();
+        var j = 1;
+        tds.eq(j++).html(data[0]["0" + i + "_MSPT"]);
+        tds.eq(j++).html(data[0]["0" + i + "_MSTT"]);
+        tds.eq(j++).html(data[0]["0" + i + "_RSPT"]);
+        tds.eq(j++).html(data[0]["0" + i + "_RSTT"]);
+        tds.eq(j++).html(data[0]["0" + i + "_MSFT"]);
+        tds.eq(j++).html(data[0]["0" + i + "_CEV"]);
+    }
+
+    function fillMotorInfo(i, data) {
+        var tr = motroInfo.eq(i - 1);
+        var tds = tr.children();
+        var j = 1;
+        tds.eq(j++).html(data[0]["0" + i + "_AP"]);
+        tds.eq(j++).html(data[0]["0" + i + "_RP"]);
+    }
+
+</script>

@@ -1,0 +1,297 @@
+﻿@model Ncepu.GraduationProject.Sis.Web.Models.General.Index.IndexModel
+@using Ncepu.GraduationProject.Sis.Web.Models.General.Index;
+@{
+    ViewBag.Title = "综合运行状况";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .rheader
+    {
+        font-weight: bold;
+        width: 40%;
+    }
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="@Url.Action("Index", "Home")">首页</a> <span class="divider">/</span>
+        </li>
+        <li>
+            <a href="#">综合运行状况</a>
+        </li>
+        <li style="padding-left: 70%">
+            <button class="btn btn-small btn-primary" onclick="$('#genModal').modal('show');">
+                <i class=" icon-search"></i>&nbsp;&nbsp;指标查询/对比</button>
+        </li>
+    </ul>
+</div>
+<!--row-->
+<div class="row-fluid sortable">
+    <div class="box span6">
+        <div class="box-header well" data-original-title>
+            <h2>总体概况</h2>
+        </div>
+        <div class="box-content">
+            <table id="general-info" class="table table-striped table-bordered ">
+                <tbody>
+                    <tr>
+                        <th class="rheader">实时总负荷(kW)</th>
+                        <td class="center">@Model.GeneralInfo.CurrentTotalLoad</td>@**@
+                    </tr>
+                    <tr>
+                        <th class="rheader">总装机容量(kW)</th>
+                        <td class="center">50000</td>
+                    </tr>
+                    <tr>
+                        <th class="rheader">平均风速(m/s)</th>
+                        <td class="center">5.1</td>
+                    </tr>
+                    <tr>
+                        <th class="rheader">环境温度(℃)</th>
+                        <td class="center">33.7</td>
+                    </tr>
+                    <tr>
+                        <th class="rheader">装机台数</th>
+                        <td class="center">33</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--/span-->
+    <div class="box span6">
+        <div class="box-header well" data-original-title>
+            <h2>机组概况</h2>
+        </div>
+        <div class="box-content">
+            <table id="unit-info" class="table table-striped table-bordered ">
+                <thead>
+                    <tr>
+                        <th>机组编号</th>
+                        <th>有功功率(kW)</th>
+                        <th>无功功率(kVar)</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var unit in Model.Unit)
+                    {
+                        <tr>
+                            <td>@unit.Id</td>
+                            <td class="center">@unit.CurrentLoad</td>
+                            <td class="center">@unit.InstalledCapacity</td>
+                            <td class="center">
+                                @if (@unit.Status == UnitStatus.Running)
+                                {
+                                    <span class="label label-success">运 行</span>
+                                }
+                                else
+                                {
+                                    <span class="label label-important">停 机</span>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--/row-->
+
+<!--row-->
+<div class="row-fluid sortable">
+
+    <div class="box span12">
+        <div class="box-header well" data-original-title>
+            <h2>实时负荷曲线</h2>
+        </div>
+        <div class="box-content">
+            <div id="chart-label" style="float: right"></div>
+            <div id="realtimechart" style="height: 250px; clear: both"></div>
+        </div>
+    </div>
+</div>
+<!--/row-->
+
+@{Html.RenderAction("Modal");}
+
+<script type="text/javascript">
+    var wsServer = "@ViewBag.Protocol://@Request.Url.Host:@ViewBag.Port/General.Index";
+    var websocket;
+    var totalLoad = [];
+    //var unitLoad = [[], [], [], []];
+    var unitLoad = [];
+    for (var i = 0; i < 4; i++) {
+        unitLoad.push(new Array());
+    }
+    var dataset;
+    var totalPoints = 30;
+    var updateInterval = 1000;
+    var now = new Date().getTime();
+    var options = {
+        series: {
+            lines: { show: true, lineWidth: 2 },
+            points: { show: true }
+        },
+        xaxis: {
+            mode: "time",
+            tickSize: [1, "second"],
+            tickFormatter: function (v, axis) {
+                var date = new Date(v);
+
+                if (date.getSeconds() % 10 == 0) {
+                    var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+                    var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+                    var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+
+                    return hours + ":" + minutes + ":" + seconds;
+                } else {
+                    return "";
+                }
+            }
+        },
+        yaxis:
+            {
+                min:0,
+                position: "left",
+            }
+        ,
+        legend: {
+            noColumns: 0,
+            container: "#chart-label"
+        },
+        grid: { hoverable: true, backgroundColor: { colors: ["#fff", "#eee"] } }
+    };
+    var previousPoint = null;
+
+    $(document).ready(function () {
+        //connect to WebSocket
+        websocket = new WebSocket(wsServer);
+        websocket.onopen = function (evt) { onOpen(evt) };
+        websocket.onclose = function (evt) { onClose(evt) };
+        websocket.onmessage = function (evt) { onMessage(evt) };
+        websocket.onerror = function (evt) { onError(evt) };
+
+        //Setup for realtime chart
+        initData();
+        $("#realtimechart").bind("plothover", function (event, pos, item) {
+            if (item) {
+                if (previousPoint != item.dataIndex) {
+                    previousPoint = item.dataIndex;
+                    $("#tooltip").remove();
+                    var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
+                    var d = new Date()
+                    d.setTime(x);
+                    var hours = d.getHours() < 10 ? "0" + d.getHours() : d.getHours();
+                    var minutes = d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes();
+                    var seconds = d.getSeconds() < 10 ? "0" + d.getSeconds() : d.getSeconds();
+                    var time = "[" + hours + ":" + minutes + ":" + seconds + "]";
+                    showTooltip(item.pageX, item.pageY, time + ":" + y + "MW");
+                }
+            }
+            else {
+                $("#tooltip").remove();
+                previousPoint = null;
+            }
+        });
+
+    });
+
+    function onOpen(evt) {
+        console.log("Connected to WebSocket server.");
+    }
+    function onClose(evt) {
+        alert("websocket is closed.");
+        console.log(evt);
+    }
+    function onMessage(evt) {
+        var data = $.parseJSON(evt.data).d;
+
+        $("#general-info tr:eq(0)>td").html(data[0]["T_SU"]);
+        $("#unit-info tr:eq(1)>td:eq(1)").html(data[0]["01_SU"]);
+        $("#unit-info tr:eq(2)>td:eq(1)").html(data[0]["02_SU"]);
+        $("#unit-info tr:eq(3)>td:eq(1)").html(data[0]["03_SU"]);
+        $("#unit-info tr:eq(4)>td:eq(1)").html(data[0]["04_SU"]);
+        update({
+            "T_SU": data[0]["T_SU"],
+            "01_SU": data[0]["01_SU"],
+            "02_SU": data[0]["02_SU"],
+            "03_SU": data[0]["03_SU"],
+            "04_SU": data[0]["04_SU"],
+            Timestamp: data[0]["Timestamp"]
+        });
+    }
+    function onError(evt) {
+        alert('Error occured: ' + evt.data);
+    }
+    function initData() {
+        for (var i = 0; i < totalPoints; i++) {
+            var temp = [now += updateInterval, null];
+            totalLoad.push(temp);
+           
+            for (var j = 0; j < 4; j++) {
+                unitLoad[j].push(temp);
+            }
+        }
+    }
+    function update(data) {
+
+        
+
+        //remove first item of array
+        totalLoad.shift();
+        var timestamp = data.Timestamp.split(".");
+        now = Date.parse(timestamp[0]) + parseInt(timestamp[1].substring(0, 3));
+
+        //add the data retrieve from backend to array
+        var temp = [now, data.T_SU];
+        totalLoad.push(temp);
+
+        for (var i = 0; i < 4; i++) {
+            unitLoad[i].shift();
+            temp=[now,data["0"+(i+1)+"_SU"]];
+            unitLoad[i].push(temp);
+        }
+
+
+        //修改前的代码如下：
+        //temp = [now, data._01_SU];
+        //unitLoad[0].push(temp);
+        //temp = [now, data._02_SU];
+        //unitLoad[1].push(temp);
+        //temp = [now, data._03_SU];
+        //unitLoad[2].push(temp);
+        //temp = [now, data._04_SU];
+        //unitLoad[3].push(temp);
+
+        //update legend label so users can see the latest value in the legend
+        dataset = [
+            { label: "总负荷" + parseFloat(data["T_SU"]).toFixed(2) + "kW", data: totalLoad, lines: { lineWidth: 2 }, yaxis: 1 },
+            { label: "1号机组:" + parseFloat(data["01_SU"]).toFixed(2) + "kW", data: unitLoad[0], lines: { lineWidth: 2 }, color: "#3f96cb", yaxis: 1 },
+            { label: "2号机组:" + parseFloat(data["02_SU"]).toFixed(2) + "kW", data: unitLoad[1], lines: { lineWidth: 2 }, color: "#cb4b4a", yaxis: 1 },
+            { label: "3号机组:" + parseFloat(data["03_SU"]).toFixed(2) + "kW", data: unitLoad[2], lines: { lineWidth: 2 }, color: "#4da74d", yaxis: 1 },
+            { label: "4号机组:" + parseFloat(data["04_SU"]).toFixed(2) + "kW", data: unitLoad[3], lines: { lineWidth: 2 }, color: "#9440ed", yaxis: 1 }
+        ];
+
+        //redraw the chart
+        $.plot($("#realtimechart"), dataset, options);
+
+
+    }
+    function showTooltip(x, y, contents) {
+        $('<div id="tooltip">' + contents + '</div>').css({
+            position: 'absolute',
+            display: 'none',
+            top: y + 5,
+            left: x + 5,
+            border: '1px solid #fdd',
+            padding: '2px',
+            'background-color': '#dfeffc',
+            opacity: 0.80
+        }).appendTo("body").fadeIn(200);
+    }
+</script>
+

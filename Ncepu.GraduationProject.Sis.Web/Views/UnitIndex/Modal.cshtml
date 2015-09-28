@@ -1,0 +1,135 @@
+﻿@model Ncepu.GraduationProject.Sis.Web.Models.UnitIndex.QueryModel
+@using Ncepu.GraduationProject.Sis.Web.Models.UnitIndex;
+
+<!-- modal window  start-->
+<div class="modal hide fade" id="uniModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>选择指标</h3>
+    </div>
+    @using (Html.BeginForm("Query", "UnitIndex", FormMethod.Post, new { @class = "form-horizontal" }))
+    { 
+    
+        <div class="modal-body">
+            <div class="row-fluid">
+                <div class="box span12">
+                    <div class="box-header well" data-original-title="">
+                        <h2><i class="icon-edit"></i>可选指标</h2>
+                    </div>
+                    <div class="box-content">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label class="checkbox inline">
+                                            <div class="checker">
+                                                <span>
+                                                    @Html.CheckBoxFor(m => m.IsBoilerChecked)
+                                                </span>
+                                            </div>
+                                            锅炉系统</label>
+                                    </td>
+                                    <td>
+                                        <label class="checkbox inline">
+                                            <div class="checker">
+                                                <span>
+                                                    @Html.CheckBoxFor(m => m.IsTurbineChecked)
+                                                </span>
+                                            </div>
+                                            汽机系统
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label class="checkbox inline">
+                                            <div class="checker">
+                                                <span>
+                                                    @Html.CheckBoxFor(m => m.IsMotorChecked)
+                                                </span>
+                                            </div>
+                                           电机系统</label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="box span12">
+                    <div class="box-header well" data-original-title="">
+                        <h2><i class="icon-edit"></i>选择机组</h2>
+                    </div>
+                    <div class="box-content">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label class="checkbox inline">
+                                            <div class="checker">
+                                                <span>
+                                                    @Html.CheckBoxFor(m => m.Data[0].IsChecked)
+                                                </span>
+                                            </div>
+                                            1#机组</label>
+                                    </td>
+                                    <td>
+                                        <label class="checkbox inline">
+                                            <div class="checker">
+                                                <span>
+                                                    @Html.CheckBoxFor(m =>m.Data[1].IsChecked)
+                                                </span>
+                                            </div>
+                                            2#机组</label>
+                                    </td>
+                                    <td>
+                                        <label class="checkbox inline">
+                                            <div class="checker">
+                                                <span>
+                                                    @Html.CheckBoxFor(m => m.Data[2].IsChecked)
+                                                </span>
+                                            </div>
+                                            3#机组</label>
+                                    </td>
+                                    <td>
+                                        <label class="checkbox inline">
+                                            <div class="checker">
+                                                <span>
+                                                    @Html.CheckBoxFor(m => m.Data[3].IsChecked)
+                                                </span>
+                                            </div>
+                                            4#机组</label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="box san12">
+                    <div class="box-header well" data-orignal-title="">
+                        <h2><i class="icon-edit"></i>日期选择</h2>
+                    </div>
+                    <div class="box-content">
+                        <div class="control-group">
+                            <label class="control-label" for="date01">选择日期:</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.Date_01, DateTime.Now.ToString("yyyy-MM-dd"), new { @class = "input-xlarge datepicker" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.Date_02, " ", new { @class = "input-xlarge datepicker", value = "" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">取消</a>
+            <input type="submit" class="btn btn-primary" value="确定" />
+        </div>
+    }
+</div>
+<!-- modal window end -->

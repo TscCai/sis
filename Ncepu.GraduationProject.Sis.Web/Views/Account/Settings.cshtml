@@ -1,0 +1,46 @@
+﻿@model Ncepu.GraduationProject.Sis.Persistence.SIS_User
+@{
+    ViewBag.Title = "账户设置";
+    Layout = "~/Views/Shared/Settings_Layout.cshtml";
+}
+
+
+<ul class="breadcrumb">
+    <li>
+        <a href="@Url.Action("Index", "Home")">首页</a> <span class="divider">/</span>
+    </li>
+    <li>
+        <a href="#">账户设置</a>
+    </li>
+</ul>
+
+
+
+<!--row-->
+<div class="row-fluid sortable">
+
+    <div class="box span12">
+        <div class="box-header well" data-original-title>
+            <h2>账户信息</h2>
+        </div>
+        <div class="box-content">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>账户名：</td>
+                        <td>@Model.Username</td>
+                    </tr>
+                    <tr>
+                        <td>用户组：</td>
+                        <td>@Model.SIS_UserGroup.GroupName</td>
+                    </tr>
+                    <tr>
+                        <td>状态：</td>
+                        <td>@Model.Status</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--/row-->

@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Ncepu.Gp.Sis" Class="DbModelDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=Ncepu.Gp.Sis;Persist Security Info=True;User ID=dev;MultipleActiveResultSets=True;Application Name=EntityFramework" SettingsObjectName="Ncepu.GraduationProject.Sis.Persistence.Properties.Settings" SettingsPropertyName="Ncepu_Gp_SisConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.SIS_BoilerIndex" Member="SIS_BoilerIndex">
+    <Type Name="SIS_BoilerIndex">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MSPB" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="MSTB" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="RSPB" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="RSTB" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="DWF" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="FWP" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="FWF" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="SEOC" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="SEOT" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="ACB" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="BFW" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="SIS_Unit_SIS_BoilerIndex" Member="SIS_Unit" ThisKey="UnitId" OtherKey="UnitId" Type="SIS_Unit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIS_Unit" Member="SIS_Unit">
+    <Type Name="SIS_Unit">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="InstalledCapacity" Type="System.Decimal" DbType="Decimal(10,3) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="SIS_Unit_SIS_BoilerIndex" Member="SIS_BoilerIndex" ThisKey="UnitId" OtherKey="UnitId" Type="SIS_BoilerIndex" />
+      <Association Name="SIS_Unit_SIS_MotorIndex" Member="SIS_MotorIndex" ThisKey="UnitId" OtherKey="UnitId" Type="SIS_MotorIndex" />
+      <Association Name="SIS_Unit_SIS_PowerGeneration_Daily" Member="SIS_PowerGeneration_Daily" ThisKey="UnitId" OtherKey="UnitId" Type="SIS_PowerGeneration_Daily" />
+      <Association Name="SIS_Unit_SIS_PowerGeneration_Hourly" Member="SIS_PowerGeneration_Hourly" ThisKey="UnitId" OtherKey="UnitId" Type="SIS_PowerGeneration_Hourly" />
+      <Association Name="SIS_Unit_SIS_PowerGeneration_Monthly" Member="SIS_PowerGeneration_Monthly" ThisKey="UnitId" OtherKey="UnitId" Type="SIS_PowerGeneration_Monthly" />
+      <Association Name="SIS_Unit_SIS_PowerGeneration_Yearly" Member="SIS_PowerGeneration_Yearly" ThisKey="UnitId" OtherKey="UnitId" Type="SIS_PowerGeneration_Yearly" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIS_MotorIndex" Member="SIS_MotorIndex">
+    <Type Name="SIS_MotorIndex">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AP" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="RP" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="SIS_Unit_SIS_MotorIndex" Member="SIS_Unit" ThisKey="UnitId" OtherKey="UnitId" Type="SIS_Unit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIS_PlantSummary" Member="SIS_PlantSummary">
+    <Type Name="SIS_PlantSummary">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="InstalledUnit" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InstalledCapacity" Type="System.Decimal" DbType="Decimal(10,3) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIS_PowerGeneration_Daily" Member="SIS_PowerGeneration_Daily">
+    <Type Name="SIS_PowerGeneration_Daily">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PowerGeneration" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="SIS_Unit_SIS_PowerGeneration_Daily" Member="SIS_Unit" ThisKey="UnitId" OtherKey="UnitId" Type="SIS_Unit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIS_PowerGeneration_Hourly" Member="SIS_PowerGeneration_Hourly">
+    <Type Name="SIS_PowerGeneration_Hourly">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PowerGeneration" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="SIS_Unit_SIS_PowerGeneration_Hourly" Member="SIS_Unit" ThisKey="UnitId" OtherKey="UnitId" Type="SIS_Unit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIS_PowerGeneration_Monthly" Member="SIS_PowerGeneration_Monthly">
+    <Type Name="SIS_PowerGeneration_Monthly">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PowerGeneration" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="SIS_Unit_SIS_PowerGeneration_Monthly" Member="SIS_Unit" ThisKey="UnitId" OtherKey="UnitId" Type="SIS_Unit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIS_PowerGeneration_Yearly" Member="SIS_PowerGeneration_Yearly">
+    <Type Name="SIS_PowerGeneration_Yearly">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PowerGeneration" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="SIS_Unit_SIS_PowerGeneration_Yearly" Member="SIS_Unit" ThisKey="UnitId" OtherKey="UnitId" Type="SIS_Unit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIS_TotalPowerGeneration_Daily" Member="SIS_TotalPowerGeneration_Daily">
+    <Type Name="SIS_TotalPowerGeneration_Daily">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PowerGenerate" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIS_TotalPowerGeneration_Hourly" Member="SIS_TotalPowerGeneration_Hourly">
+    <Type Name="SIS_TotalPowerGeneration_Hourly">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PowerGenerate" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIS_TotalPowerGeneration_Monthly" Member="SIS_TotalPowerGeneration_Monthly">
+    <Type Name="SIS_TotalPowerGeneration_Monthly">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PowerGenerate" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIS_TotalPowerGeneration_Yearly" Member="SIS_TotalPowerGeneration_Yearly">
+    <Type Name="SIS_TotalPowerGeneration_Yearly">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PowerGenerate" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIS_TurbineIndex" Member="SIS_TurbineIndex">
+    <Type Name="SIS_TurbineIndex">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MSPT" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="MSTT" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="MSFT" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="RSPT" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="RSTT" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="CEV" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIS_EnvrionmentalIndex" Member="SIS_EnvrionmentalIndex">
+    <Type Name="SIS_EnvrionmentalIndex">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SO2" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="NOX" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="DSPC" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="DNPC" Type="System.Decimal" DbType="Decimal(15,3)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIS_User" Member="SIS_User">
+    <Type Name="SIS_User">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Salt" Type="System.String" DbType="Char(16) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="Char(64) NOT NULL" CanBeNull="false" />
+      <Column Name="GroupId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="SIS_UserGroup_SIS_User" Member="SIS_UserGroup" ThisKey="GroupId" OtherKey="Id" Type="SIS_UserGroup" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIS_UserGroup" Member="SIS_UserGroup">
+    <Type Name="SIS_UserGroup">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GroupName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="SIS_UserGroup_SIS_User" Member="SIS_User" ThisKey="Id" OtherKey="GroupId" Type="SIS_User" />
+    </Type>
+  </Table>
+</Database>

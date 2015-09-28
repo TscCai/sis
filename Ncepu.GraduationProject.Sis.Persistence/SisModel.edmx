@@ -1,0 +1,518 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Ncepu.GraduationProject.Sis.Persistence.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="NcepuGraduationProjectSisPersistenceStoreContainer">
+          <EntitySet Name="SIS_BoilerIndex" EntityType="Ncepu.GraduationProject.Sis.Persistence.Store.SIS_BoilerIndex" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SIS_EnvrionmentalIndex" EntityType="Ncepu.GraduationProject.Sis.Persistence.Store.SIS_EnvrionmentalIndex" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SIS_MotorIndex" EntityType="Ncepu.GraduationProject.Sis.Persistence.Store.SIS_MotorIndex" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SIS_PlantSummary" EntityType="Ncepu.GraduationProject.Sis.Persistence.Store.SIS_PlantSummary" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SIS_PowerGeneration_Daily" EntityType="Ncepu.GraduationProject.Sis.Persistence.Store.SIS_PowerGeneration_Daily" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SIS_PowerGeneration_Hourly" EntityType="Ncepu.GraduationProject.Sis.Persistence.Store.SIS_PowerGeneration_Hourly" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SIS_PowerGeneration_Monthly" EntityType="Ncepu.GraduationProject.Sis.Persistence.Store.SIS_PowerGeneration_Monthly" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SIS_PowerGeneration_Yearly" EntityType="Ncepu.GraduationProject.Sis.Persistence.Store.SIS_PowerGeneration_Yearly" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SIS_TotalPowerGeneration_Daily" EntityType="Ncepu.GraduationProject.Sis.Persistence.Store.SIS_TotalPowerGeneration_Daily" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SIS_TotalPowerGeneration_Hourly" EntityType="Ncepu.GraduationProject.Sis.Persistence.Store.SIS_TotalPowerGeneration_Hourly" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SIS_TotalPowerGeneration_Monthly" EntityType="Ncepu.GraduationProject.Sis.Persistence.Store.SIS_TotalPowerGeneration_Monthly" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SIS_TotalPowerGeneration_Yearly" EntityType="Ncepu.GraduationProject.Sis.Persistence.Store.SIS_TotalPowerGeneration_Yearly" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SIS_TurbineIndex" EntityType="Ncepu.GraduationProject.Sis.Persistence.Store.SIS_TurbineIndex" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SIS_Unit" EntityType="Ncepu.GraduationProject.Sis.Persistence.Store.SIS_Unit" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="SIS_BoilerIndex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="MSPB" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="MSTB" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="RSPB" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="RSTB" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="DWF" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="FWP" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="FWF" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="SEOC" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="SEOT" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="ACB" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="BFW" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_EnvrionmentalIndex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="SO2" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="NOX" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="DSPC" Type="nchar" MaxLength="10" />
+          <Property Name="DNPC" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_MotorIndex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="AP" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="RP" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_PlantSummary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="InstalledUnit" Type="int" Nullable="false" />
+          <Property Name="InstalledCapacity" Type="decimal" Nullable="false" Precision="10" Scale="3" />
+        </EntityType>
+        <EntityType Name="SIS_PowerGeneration_Daily">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="PowerGeneration" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_PowerGeneration_Hourly">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="PowerGeneration" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_PowerGeneration_Monthly">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="PowerGeneration" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_PowerGeneration_Yearly">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="PowerGeneration" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_TotalPowerGeneration_Daily">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PowerGenerate" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_TotalPowerGeneration_Hourly">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PowerGenerate" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_TotalPowerGeneration_Monthly">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PowerGenerate" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_TotalPowerGeneration_Yearly">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PowerGenerate" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_TurbineIndex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="MSPT" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="MSTT" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="MSFT" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="RSPT" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="RSTT" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="CEV" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+      警告 6035: 关系“FK_SIS_BoilerIndex_SIS_Unit”在关系主端上有一些列不属于表的键的一部分。已排除了此关系。
+      警告 6035: 关系“FK_SIS_EnvrionmentalIndex_SIS_EnvrionmentalIndex”在关系主端上有一些列不属于表的键的一部分。已排除了此关系。
+      警告 6035: 关系“FK_SIS_MotorIndex_SIS_Unit”在关系主端上有一些列不属于表的键的一部分。已排除了此关系。
+      警告 6035: 关系“FK_SIS_PowerGeneration_Daily_SIS_Unit”在关系主端上有一些列不属于表的键的一部分。已排除了此关系。
+      警告 6035: 关系“FK_SIS_PowerGeneration_Hourly_SIS_Unit”在关系主端上有一些列不属于表的键的一部分。已排除了此关系。
+      警告 6035: 关系“FK_SIS_PowerGeneration_Monthly_SIS_Unit”在关系主端上有一些列不属于表的键的一部分。已排除了此关系。
+      警告 6035: 关系“FK_SIS_PowerGeneration_Yearly_SIS_Unit”在关系主端上有一些列不属于表的键的一部分。已排除了此关系。
+      -->
+        <EntityType Name="SIS_Unit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="InstalledCapacity" Type="decimal" Nullable="false" Precision="10" Scale="3" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Ncepu.GraduationProject.Sis.Persistence" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DbEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="SIS_BoilerIndex" EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_BoilerIndex" />
+          <EntitySet Name="SIS_EnvrionmentalIndex" EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_EnvrionmentalIndex" />
+          <EntitySet Name="SIS_MotorIndex" EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_MotorIndex" />
+          <EntitySet Name="SIS_PlantSummary" EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_PlantSummary" />
+          <EntitySet Name="SIS_PowerGeneration_Daily" EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_PowerGeneration_Daily" />
+          <EntitySet Name="SIS_PowerGeneration_Hourly" EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_PowerGeneration_Hourly" />
+          <EntitySet Name="SIS_PowerGeneration_Monthly" EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_PowerGeneration_Monthly" />
+          <EntitySet Name="SIS_PowerGeneration_Yearly" EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_PowerGeneration_Yearly" />
+          <EntitySet Name="SIS_TurbineIndex" EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_TurbineIndex" />
+          <EntitySet Name="SIS_Unit" EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_Unit" />
+          <EntitySet Name="SIS_TotalPowerGeneration_Daily" EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_TotalPowerGeneration_Daily" />
+          <EntitySet Name="SIS_TotalPowerGeneration_Hourly" EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_TotalPowerGeneration_Hourly" />
+          <EntitySet Name="SIS_TotalPowerGeneration_Monthly" EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_TotalPowerGeneration_Monthly" />
+          <EntitySet Name="SIS_TotalPowerGeneration_Yearly" EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_TotalPowerGeneration_Yearly" />
+        </EntityContainer>
+        <EntityType Name="SIS_BoilerIndex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="MSPB" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="MSTB" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="RSPB" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="RSTB" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="DWF" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="FWP" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="FWF" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="SEOC" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="SEOT" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="ACB" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="BFW" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="Timestamp" Precision="3" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_EnvrionmentalIndex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="SO2" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="NOX" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="DSPC" MaxLength="10" FixedLength="true" Unicode="true" Type="String" />
+          <Property Name="DNPC" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="Timestamp" Precision="3" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_MotorIndex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="AP" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="RP" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="Timestamp" Precision="3" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_PlantSummary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="InstalledUnit" Type="Int32" Nullable="false" />
+          <Property Name="InstalledCapacity" Precision="10" Scale="3" Type="Decimal" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_PowerGeneration_Daily">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="PowerGeneration" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="Timestamp" Precision="3" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_PowerGeneration_Hourly">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="PowerGeneration" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="Timestamp" Precision="3" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_PowerGeneration_Monthly">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="PowerGeneration" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="Timestamp" Precision="3" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_PowerGeneration_Yearly">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="PowerGeneration" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="Timestamp" Precision="3" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_TurbineIndex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="MSPT" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="MSTT" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="MSFT" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="RSPT" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="RSTT" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="CEV" Precision="15" Scale="3" Type="Decimal" />
+          <Property Name="Timestamp" Precision="3" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_Unit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="Name" MaxLength="30" FixedLength="false" Unicode="true" Type="String" Nullable="false" />
+          <Property Name="InstalledCapacity" Precision="10" Scale="3" Type="Decimal" Nullable="false" />
+          <Property Name="Status" MaxLength="20" FixedLength="false" Unicode="false" Type="String" />
+        </EntityType>
+        <EntityType Name="SIS_TotalPowerGeneration_Daily">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="PowerGenerate" Precision="15" Scale="3" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="SIS_TotalPowerGeneration_Hourly">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="PowerGenerate" Precision="15" Scale="3" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="SIS_TotalPowerGeneration_Monthly">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="PowerGenerate" Precision="15" Scale="3" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="SIS_TotalPowerGeneration_Yearly">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="PowerGenerate" Precision="15" Scale="3" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NcepuGraduationProjectSisPersistenceStoreContainer" CdmEntityContainer="DbEntities">
+          <EntitySetMapping Name="SIS_BoilerIndex">
+            <EntityTypeMapping TypeName="Ncepu.GraduationProject.Sis.Persistence.SIS_BoilerIndex">
+              <MappingFragment StoreEntitySet="SIS_BoilerIndex">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="MSPB" ColumnName="MSPB" />
+                <ScalarProperty Name="MSTB" ColumnName="MSTB" />
+                <ScalarProperty Name="RSPB" ColumnName="RSPB" />
+                <ScalarProperty Name="RSTB" ColumnName="RSTB" />
+                <ScalarProperty Name="DWF" ColumnName="DWF" />
+                <ScalarProperty Name="FWP" ColumnName="FWP" />
+                <ScalarProperty Name="FWF" ColumnName="FWF" />
+                <ScalarProperty Name="SEOC" ColumnName="SEOC" />
+                <ScalarProperty Name="SEOT" ColumnName="SEOT" />
+                <ScalarProperty Name="ACB" ColumnName="ACB" />
+                <ScalarProperty Name="BFW" ColumnName="BFW" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_EnvrionmentalIndex">
+            <EntityTypeMapping TypeName="Ncepu.GraduationProject.Sis.Persistence.SIS_EnvrionmentalIndex">
+              <MappingFragment StoreEntitySet="SIS_EnvrionmentalIndex">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="SO2" ColumnName="SO2" />
+                <ScalarProperty Name="NOX" ColumnName="NOX" />
+                <ScalarProperty Name="DSPC" ColumnName="DSPC" />
+                <ScalarProperty Name="DNPC" ColumnName="DNPC" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_MotorIndex">
+            <EntityTypeMapping TypeName="Ncepu.GraduationProject.Sis.Persistence.SIS_MotorIndex">
+              <MappingFragment StoreEntitySet="SIS_MotorIndex">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="AP" ColumnName="AP" />
+                <ScalarProperty Name="RP" ColumnName="RP" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_PlantSummary">
+            <EntityTypeMapping TypeName="Ncepu.GraduationProject.Sis.Persistence.SIS_PlantSummary">
+              <MappingFragment StoreEntitySet="SIS_PlantSummary">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InstalledUnit" ColumnName="InstalledUnit" />
+                <ScalarProperty Name="InstalledCapacity" ColumnName="InstalledCapacity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_PowerGeneration_Daily">
+            <EntityTypeMapping TypeName="Ncepu.GraduationProject.Sis.Persistence.SIS_PowerGeneration_Daily">
+              <MappingFragment StoreEntitySet="SIS_PowerGeneration_Daily">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="PowerGeneration" ColumnName="PowerGeneration" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_PowerGeneration_Hourly">
+            <EntityTypeMapping TypeName="Ncepu.GraduationProject.Sis.Persistence.SIS_PowerGeneration_Hourly">
+              <MappingFragment StoreEntitySet="SIS_PowerGeneration_Hourly">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="PowerGeneration" ColumnName="PowerGeneration" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_PowerGeneration_Monthly">
+            <EntityTypeMapping TypeName="Ncepu.GraduationProject.Sis.Persistence.SIS_PowerGeneration_Monthly">
+              <MappingFragment StoreEntitySet="SIS_PowerGeneration_Monthly">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="PowerGeneration" ColumnName="PowerGeneration" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_PowerGeneration_Yearly">
+            <EntityTypeMapping TypeName="Ncepu.GraduationProject.Sis.Persistence.SIS_PowerGeneration_Yearly">
+              <MappingFragment StoreEntitySet="SIS_PowerGeneration_Yearly">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="PowerGeneration" ColumnName="PowerGeneration" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_TurbineIndex">
+            <EntityTypeMapping TypeName="Ncepu.GraduationProject.Sis.Persistence.SIS_TurbineIndex">
+              <MappingFragment StoreEntitySet="SIS_TurbineIndex">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="MSPT" ColumnName="MSPT" />
+                <ScalarProperty Name="MSTT" ColumnName="MSTT" />
+                <ScalarProperty Name="MSFT" ColumnName="MSFT" />
+                <ScalarProperty Name="RSPT" ColumnName="RSPT" />
+                <ScalarProperty Name="RSTT" ColumnName="RSTT" />
+                <ScalarProperty Name="CEV" ColumnName="CEV" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_Unit">
+            <EntityTypeMapping TypeName="Ncepu.GraduationProject.Sis.Persistence.SIS_Unit">
+              <MappingFragment StoreEntitySet="SIS_Unit">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="InstalledCapacity" ColumnName="InstalledCapacity" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_TotalPowerGeneration_Daily">
+            <EntityTypeMapping TypeName="Ncepu.GraduationProject.Sis.Persistence.SIS_TotalPowerGeneration_Daily">
+              <MappingFragment StoreEntitySet="SIS_TotalPowerGeneration_Daily">
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="PowerGenerate" ColumnName="PowerGenerate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_TotalPowerGeneration_Hourly">
+            <EntityTypeMapping TypeName="Ncepu.GraduationProject.Sis.Persistence.SIS_TotalPowerGeneration_Hourly">
+              <MappingFragment StoreEntitySet="SIS_TotalPowerGeneration_Hourly">
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="PowerGenerate" ColumnName="PowerGenerate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_TotalPowerGeneration_Monthly">
+            <EntityTypeMapping TypeName="Ncepu.GraduationProject.Sis.Persistence.SIS_TotalPowerGeneration_Monthly">
+              <MappingFragment StoreEntitySet="SIS_TotalPowerGeneration_Monthly">
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="PowerGenerate" ColumnName="PowerGenerate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_TotalPowerGeneration_Yearly">
+            <EntityTypeMapping TypeName="Ncepu.GraduationProject.Sis.Persistence.SIS_TotalPowerGeneration_Yearly">
+              <MappingFragment StoreEntitySet="SIS_TotalPowerGeneration_Yearly">
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="PowerGenerate" ColumnName="PowerGenerate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

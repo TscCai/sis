@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f61086c64a81483cb39fde2721ccf081" Name="Diagram1">
+        <EntityTypeShape EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_BoilerIndex" PointX="0.75" PointY="0.75" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_EnvrionmentalIndex" PointX="2.75" PointY="0.75" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_MotorIndex" PointX="4.75" PointY="0.75" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_PlantSummary" PointX="2.75" PointY="4.75" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_PowerGeneration_Daily" PointX="4.75" PointY="3.75" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_PowerGeneration_Hourly" PointX="6.75" PointY="0.75" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_PowerGeneration_Monthly" PointX="6.75" PointY="3.75" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_PowerGeneration_Yearly" PointX="4.75" PointY="6.75" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_TurbineIndex" PointX="6.75" PointY="6.75" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_Unit" PointX="0.75" PointY="7.75" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_TotalPowerGeneration_Daily" Width="1.5" PointX="4.9553322796501833" PointY="13.034694737305257" />
+        <EntityTypeShape EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_TotalPowerGeneration_Hourly" Width="1.5" PointX="1.326183692238379" PointY="14.760858974773838" />
+        <EntityTypeShape EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_TotalPowerGeneration_Monthly" Width="1.5" PointX="7.1671778853829844" PointY="25.762117084936293" />
+        <EntityTypeShape EntityType="Ncepu.GraduationProject.Sis.Persistence.SIS_TotalPowerGeneration_Yearly" Width="1.5" PointX="6.518562765102164" PointY="7.1481317165997496" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

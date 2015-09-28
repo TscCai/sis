@@ -1,0 +1,68 @@
+﻿@model Ncepu.GraduationProject.Sis.Persistence.SIS_User
+
+@{
+    ViewBag.Title = "AddUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li>
+        <a href="@Url.Action("Index", "Home")">首页</a> <span class="divider">/</span>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "User")">系统维护</a> <span class="divider">/</span>
+    </li>
+    <li>
+        <a href="#">添加用户</a>
+    </li>
+</ul>
+
+@if (ViewBag.Show)
+{
+    <div class="alert @ViewBag.Class">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        @ViewBag.Hint
+    </div>
+}
+
+<div class="row-fluid sortable">
+    <div class="box span12">
+        <div class="box-header well" data-original-title>
+            <h2><i class="icon-edit"></i>添加用户</h2>
+        </div>
+        <div class="box-content">
+            @using (Html.BeginForm("Add", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label" for="focusedInput">用户名</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Username, new { @class = "input-xlarge focused" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">密码</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Password, new { @class = "input-xlarge" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="selectError">用户组</label>
+                        <div class="controls">
+                            <select id="GroupId" name="GroupId" data-rel="chosen">
+                                <option value="2">用户</option>
+                                <option value="1">管理员</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">确定</button>
+                    </div>
+                </fieldset>
+            }
+        </div>
+    </div>
+    <!--/span-->
+
+</div>
+<!--/row-->

@@ -1,0 +1,82 @@
+﻿@model Ncepu.GraduationProject.Sis.Persistence.SIS_User
+
+@{
+    ViewBag.Title = "编辑用户";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li>
+        <a href="@Url.Action("Index", "Home")">首页</a> <span class="divider">/</span>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "User")">系统维护</a> <span class="divider">/</span>
+    </li>
+    <li>
+        <a href="#">编辑用户</a>
+    </li>
+
+</ul>
+<!-- row -->
+<div class="row-fluid sortable">
+    <div class="box span12">
+        <div class="box-header well" data-original-title>
+            <h2><i class="icon-edit"></i>用户信息</h2>
+        </div>
+        <div class="box-content">
+            @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label" for="focusedInput">用户名</label>
+                        <div class="controls">
+                            <span class="input-xlarge uneditable-input">@Model.Username</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="selectError">用户组</label>
+                        <div class="controls">
+                            <select id="GroupId" name="GroupId" data-rel="chosen">
+                                <option value="2">用户</option>
+                                <option value="1">管理员</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">用户状态</label>
+                        <div class="controls">
+                            <label class="radio">
+                                <input type="radio" name="Status" id="Status" value="正常" />
+                                正常
+                            </label>
+                            <div style="clear: both"></div>
+                            <label class="radio">
+                                <input type="radio" name="Status" id="Status2" value="停用" />
+                                停用
+                            </label>
+
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">确定</button>
+                    </div>
+                </fieldset>
+            }
+        </div>
+    </div>
+    <!--/span-->
+
+</div>
+<!--/row-->
+<script>
+    $(document).ready(function (){
+        var status = "@Model.Status";
+        var group_id=@Model.GroupId;
+        $("#GroupId option[value="+group_id+"]").attr("selected","selected");
+        $("input[type='radio']").each(function(){
+            if($(this).val()==status){
+                $(this).attr("checked","checked");
+            }
+        });
+    });
+</script>
